@@ -99,6 +99,7 @@ userRouter.put('/user/:id', async (req : Request, res : Response) => {
     }
 })
 
+console.log("added new line above an APIs")
 userRouter.post("/register2", async (req : Request, res : Response) => {
     try {
         const { username, email, password } = req.body
