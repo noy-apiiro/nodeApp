@@ -135,6 +135,35 @@ userRouter.post("/register2", async (req : Request, res : Response) => {
 
 console.log("added another login route under this new line, above the original login route")
 
+userRouter.post("/stamPath", async (req : Request, res : Response) => {
+    try {
+        const {email, password} = req.body
+
+        if (!email || !password) {
+            return res.status(StatusCodes.BAD_REQUEST).json({error : "Please provide all the required parameters.."})
+        }
+
+        const user = await database.findByEmail(email)
+
+        if (!user) {
+            return res.status(StatusCodes.NOT_FOUND).json({error : "No user exists with the email provided.."})
+        }
+
+        const comparePassword = await database.comparePassword(email, password)
+
+        if (!comparePassword) {
+            return res.status(StatusCodes.BAD_REQUEST).json({error : `Incorrect Password!`})
+        }
+
+        return res.status(StatusCodes.OK).json({user})
+
+    } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
+    }
+})
+
+console.log("added another login route under this new line, above the original login route")
+
 userRouter.post("/login2", async (req : Request, res : Response) => {
     try {
         const {email, password} = req.body
