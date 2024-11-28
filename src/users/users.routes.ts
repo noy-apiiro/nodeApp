@@ -90,7 +90,6 @@ userRouter.post("/register", async (req : Request, res : Response) => {
 userRouter.put('/user/:id', async (req : Request, res : Response) => {
 
     try {
-        mongodb://root:apiiro123@localhost:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false
         const {username, email, password} = req.body
 
         const getUser = await database.findOne(req.params.id)
